@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Welcome to Parking Management System</h1>
+            
+            <p>
+                This system allows users to manage parking centers and cars efficiently. 
+                After registering or logging in, you can create your own parking centers, 
+                add or remove cars, and view all parked cars in each center. Simplify your parking 
+                management experience with our user-friendly platform.
+            </p>
+            
+            <div class="buttons">
+                <a href="{{ url_for('login') }}" class="primary-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="primary-btn">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript for toast display -->
+    <script>
+        const toast = document.getElementById("toast");
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                let message = "";
+                {% for category, message in messages %}
+                    message += `<span class="{{ category }}">{{ message }}</span><br>`;
+                {% endfor %}
+                toast.innerHTML = message;
+                toast.className = "toast show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            {% endif %}
+        {% endwith %}
+    </script>
+</body>
+</html>

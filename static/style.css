@@ -1,0 +1,227 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 40px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Button Styles */
+
+/* Primary Button */
+.primary-btn {
+    background-color: #2196f3; /* Blue for primary actions */
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.primary-btn:hover {
+    background-color: #1976d2; /* Darker blue on hover */
+}
+
+/* Secondary Button */
+.secondary-btn {
+    background-color: #4caf50; /* Green for secondary actions */
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.secondary-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Danger Button */
+.danger-btn {
+    background-color: #f44336; /* Red for danger actions */
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.danger-btn:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+
+/* For actions in dashboard (view, delete) */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.icon-btn i {
+    color: #2196f3; /* Blue for icons */
+}
+
+.icon-btn:hover i {
+    color: #1976d2; /* Darker blue on hover */
+}
+
+/* Specific Delete Icon */
+.icon-btn.danger i {
+    color: #f44336; /* Red for Delete icon */
+}
+
+.icon-btn.danger:hover i {
+    color: #e53935; /* Darker red on hover */
+}
+
+/* Additional styling for index page buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Form and Input Styles */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.input {
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.input:focus {
+    border-color: #764ba2;
+    outline: none;
+}
+
+/* Toast Styles */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(-50%);
+}
+
+.toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Cars in Parking Center</h1>
+
+            <!-- Back Button -->
+            <div class="back-btn-container">
+                <a href="{{ url_for('dashboard') }}" class="secondary-btn">Back to Parking Centers</a>
+            </div>
+
+            <!-- Toast container -->
+            <div id="toast" class="toast"></div>
+
+            <!-- Form to Add and Remove Cars -->
+            <form method="POST" action="{{ url_for('manage_car_in_center', center_id=center_id) }}" class="form">
+                <input type="text" name="car_number" placeholder="Enter car number" required class="input">
+                <div class="buttons">
+                    <button type="submit" name="action" value="add" class="primary-btn">Add Car</button>
+                    <button type="submit" name="action" value="remove" class="danger-btn">Remove Car</button>
+                </div>
+            </form>
+
+            <!-- Car List -->
+            {% if cars|length > 0 %}
+                <h2>Cars:</h2>
+                <ul class="car-list">
+                    {% for car in cars %}
+                        <li class="car-item">
+                            <span>{{ car[1] }}</span>
+                            <!-- Delete Button Icon -->
+                            <form method="POST" action="{{ url_for('manage_car_in_center', center_id=center_id) }}" class="delete-form">
+                                <input type="hidden" name="car_number" value="{{ car[1] }}">
+                                <button type="submit" name="action" value="remove" class="icon-btn danger-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No cars in this center.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- JavaScript for toast display -->
+    <script>
+        const toast = document.getElementById("toast");
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                let message = "";
+                {% for category, message in messages %}
+                    message += `<span class="{{ category }}">{{ message }}</span><br>`;
+                {% endfor %}
+                toast.innerHTML = message;
+                toast.className = "toast show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            {% endif %}
+        {% endwith %}
+    </script>
+</body>
+</html>
