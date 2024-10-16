@@ -225,3 +225,55 @@ p {
         margin: 10px 0;
     }
 }
+
+/* Add margin below the form to create space between Create Parking Center and Logout button */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px; /* Increased margin below the form */
+}
+
+.parking-center-list {
+    list-style: none; /* Remove default list styling */
+    padding-left: 0;  /* Remove any default padding */
+}
+
+.parking-center-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+    padding-left: 25px; /* Add padding to make space for the bullet */
+}
+
+/* Custom bullet using ::before pseudo-element */
+.parking-center-item::before {
+    content: "\2022"; /* Unicode for bullet point */
+    color: #333; /* Bullet color */
+    font-size: 1.5em; /* Size of the bullet */
+    position: absolute;
+    left: 0; /* Position bullet on the left */
+    top: 50%;
+    transform: translateY(-50%); /* Center the bullet vertically */
+}
+
+.center-name {
+    flex-grow: 1; /* Ensures the name takes up available space */
+    text-align: left; /* Aligns text to the left */
+}
+
+.actions {
+    display: flex;
+    gap: 10px; /* Adds spacing between the buttons */
+}
+
+.car-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Optional: adds a divider between cars */
+}
