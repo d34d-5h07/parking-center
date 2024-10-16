@@ -10,8 +10,6 @@
 <body>
     <div class="container">
         <div class="card">
-            <h1>Welcome, {{ session['username'] }}</h1>
-
             <h2>Your Parking Centers</h2>
             {% if parking_centers|length > 0 %}
                 <ul class="parking-center-list">

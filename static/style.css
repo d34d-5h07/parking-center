@@ -94,6 +94,23 @@ p {
     background-color: #45a049; /* Darker green on hover */
 }
 
+
+.register-btn {
+    background-color: #4caf50; /* Green for secondary actions */
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.register-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
 /* Danger Button */
 .danger-btn {
     background-color: #f44336; /* Red for danger actions */
@@ -192,13 +209,25 @@ p {
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
 }
 
 /* Responsive Design */
@@ -237,7 +266,7 @@ p {
 
 .parking-center-list {
     list-style: none; /* Remove default list styling */
-    padding-left: 0;  /* Remove any default padding */
+    padding-left: 0; /* Remove any default padding */
 }
 
 .parking-center-item {
@@ -270,10 +299,30 @@ p {
     gap: 10px; /* Adds spacing between the buttons */
 }
 
+
+/* Add numbering for car items */
+.car-list {
+    counter-reset: car-counter; /* Initialize counter */
+}
+
 .car-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ccc; /* Optional: adds a divider between cars */
+    position: relative;
+    padding-left: 40px; /* Add padding to make space for the numbers */
+}
+
+.car-item::before {
+    content: counter(car-counter) ". "; /* Adds the number before the car name */
+    counter-increment: car-counter; /* Increment the counter */
+    position: absolute;
+    left: 0; /* Position the number on the left */
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #333; /* Optional: style the number */
+    font-size: 1.2em; /* Adjust size if needed */
 }

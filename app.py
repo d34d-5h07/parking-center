@@ -18,7 +18,9 @@ def init_db():
         conn.execute(
             'CREATE TABLE IF NOT EXISTS parking_centers (id INTEGER PRIMARY KEY, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES users(id))')
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS cars (id INTEGER PRIMARY KEY, car_number TEXT UNIQUE, parking_center_id INTEGER, FOREIGN KEY(parking_center_id) REFERENCES parking_centers(id))')
+            'CREATE TABLE IF NOT EXISTS cars (id INTEGER PRIMARY KEY, car_number TEXT UNIQUE)')
+        conn.execute(
+            'CREATE TABLE IF NOT EXISTS parking_center_car (id INTEGER PRIMARY KEY, parking_center_id INTEGER, car_id INTEGER, entry_time TEXT, exit_time TEXT, FOREIGN KEY(parking_center_id) REFERENCES parking_centers(id), FOREIGN KEY(car_id) REFERENCES cars(id))')
         conn.commit()
 
 
@@ -132,7 +134,8 @@ def view_parking_center(center_id):
 
     with sqlite3.connect('parking.db') as conn:
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM cars WHERE parking_center_id = ?', (center_id,))
+        cursor.execute('SELECT c.id, c.car_number, pcc.entry_time, pcc.exit_time FROM cars c '
+                       'JOIN parking_center_car pcc ON c.id = pcc.car_id WHERE pcc.parking_center_id = ?', (center_id,))
         cars = cursor.fetchall()
 
     return render_template('view_parking_center.html', cars=cars, center_id=center_id)
@@ -147,17 +150,28 @@ def manage_car_in_center(center_id):
     with sqlite3.connect('parking.db') as conn:
         cursor = conn.cursor()
 
+        # Check if the car exists in the cars table
+        cursor.execute('SELECT id FROM cars WHERE car_number = ?', (car_number,))
+        car = cursor.fetchone()
+
+        if not car:
+            # Add car to the cars table if not already there
+            cursor.execute('INSERT INTO cars (car_number) VALUES (?)', (car_number,))
+            car_id = cursor.lastrowid
+        else:
+            car_id = car[0]
+
         if action == 'add':
             try:
-                cursor.execute('INSERT INTO cars (car_number, parking_center_id) VALUES (?, ?)',
-                               (car_number, center_id))
+                cursor.execute('INSERT INTO parking_center_car (parking_center_id, car_id, entry_time) VALUES (?, ?, datetime("now"))',
+                               (center_id, car_id))
                 conn.commit()
                 flash(f'Car {car_number} added successfully.', 'success')
             except sqlite3.IntegrityError:
                 flash(f'Car {car_number} is already in the list.', 'error')
 
         elif action == 'remove':
-            cursor.execute('DELETE FROM cars WHERE car_number = ? AND parking_center_id = ?', (car_number, center_id))
+            cursor.execute('DELETE FROM parking_center_car WHERE car_id = ? AND parking_center_id = ?', (car_id, center_id))
             if cursor.rowcount == 0:
                 flash(f'Car {car_number} is not in the list.', 'error')
             else:

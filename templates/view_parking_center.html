@@ -10,11 +10,11 @@
 <body>
     <div class="container">
         <div class="card">
-            <h1>Cars in Parking Center</h1>
+            <h1>Cars in Parking Center {{ cars|length }}</h1>
 
             <!-- Back Button -->
             <div class="back-btn-container">
-                <a href="{{ url_for('dashboard') }}" class="secondary-btn">Back to Parking Centers</a>
+                <a href="{{ url_for('dashboard') }}" class="register-btn">Back to Parking Centers</a>
             </div>
 
             <!-- Toast container -->
@@ -46,6 +46,7 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <!-- Display Total Number of Cars -->
             {% else %}
                 <p>No cars in this center.</p>
             {% endif %}
